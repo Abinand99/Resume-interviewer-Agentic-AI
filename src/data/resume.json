@@ -1,0 +1,85 @@
+{
+  "projects": [
+    {
+      "name": "MLOps Project \u2013 Vehicle Insurance Data Pipeline",
+      "tech_stack": [
+        "Python",
+        "MongoDB",
+        "AWS",
+        "Docker",
+        "GitHub Actions"
+      ],
+      "description": "Built an end-to-end MLOps pipeline covering data ingestion from MongoDB, validation, transformation, model training, evaluation, and deployment using modular Python components. Implemented CI/CD automation with Docker and GitHub Actions; deployed models on AWS EC2 with S3-based model registry and ECR-backed container delivery."
+    },
+    {
+      "name": "COVID-19 Chest X-Ray Classification",
+      "tech_stack": [
+        "Python",
+        "PyTorch",
+        "EfficientNet"
+      ],
+      "description": "Trained an EfficientNet-based transfer learning model to classify chest X-rays into COVID-19, Pneumonia, Lung Opacity, and Normal classes. Achieved 92.3% validation accuracy using fine-tuning and learning rate scheduling."
+    },
+    {
+      "name": "Multi-PDF Chatbot",
+      "tech_stack": [
+        "Python",
+        "Streamlit",
+        "LangChain",
+        "Gemini Pro",
+        "FAISS"
+      ],
+      "description": "Built a RAG-based chatbot capable of answering queries across multiple uploaded PDFs with conversational memory. Implemented FAISS-based vector retrieval for fast and accurate semantic search."
+    }
+  ],
+  "skills": [
+    "Python",
+    "C",
+    "C++",
+    "SQL",
+    "PyTorch",
+    "TensorFlow",
+    "Scikit-learn",
+    "Neural Networks",
+    "OpenCV",
+    "CNN",
+    "LSTM",
+    "LangChain",
+    "RAG",
+    "LangGraph",
+    "HuggingFace",
+    "Model Deployment",
+    "Experiment Tracking",
+    "CI/CD",
+    "Docker",
+    "Git",
+    "Streamlit",
+    "MCP"
+  ],
+  "experience": [
+    {
+      "company": "Awans Smart Solutions",
+      "role": "AI/ML Engineer Consultant",
+      "responsibilities": [
+        "Built a real-time multi-camera semantic segmentation system to automate driving test pass/fail evaluation for Kerala MVD.",
+        "Designed and deployed low-latency video inference pipelines using PyTorch and OpenCV for live processing."
+      ]
+    },
+    {
+      "company": "Zoho Research and Development Labs",
+      "role": "AI/ML Research Engineer Trainee",
+      "responsibilities": [
+        "Researched and implemented approximate matrix multiplication (MADDNESS) techniques in C++ for performance-critical workloads.",
+        "Benchmarked and optimized ML kernels for latency reduction and memory efficiency."
+      ]
+    },
+    {
+      "company": "Luminar Technohub",
+      "role": "Data Science Intern",
+      "responsibilities": [
+        "Developed end-to-end machine learning pipelines on real-world datasets from preprocessing to evaluation.",
+        "Built and validated supervised ML and deep learning models using industry-standard metrics."
+      ]
+    }
+  ]
+}

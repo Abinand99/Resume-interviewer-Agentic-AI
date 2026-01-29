@@ -1,0 +1,5 @@
+pymupdf
+huggingface_hub
+python-dotenv
+pydantic
+groq
