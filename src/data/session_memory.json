@@ -1,0 +1,39 @@
+{
+  "session_id": "session_20260212_190415",
+  "current_topic": "specific data preprocessing steps (e.g., resizing, normalization, lung segmentation)",
+  "turns": [
+    {
+      "question": "In your real\u2011time multi\u2011camera semantic segmentation system for automating driving\u2011test evaluations, can you walk me through the architectural decisions you made to achieve low\u2011latency video inference\u2014specifically how you chose and optimized the model, managed data flow across multiple camera streams, and leveraged hardware resources, and what trade\u2011offs you considered between accuracy, throughput, and system complexity?",
+      "topic": null,
+      "answer": "In my Vehicle Insurance MLOps pipeline, I used Amazon S3 as a lightweight model registry and designed it to support proper versioning, reproducibility, and safe rollbacks, fully integrated with Docker and GitHub Actions.",
+      "evaluation": {
+        "overall_score": 0
+      }
+    },
+    {
+      "question": "In your MLOps project for the vehicle insurance data pipeline, can you walk me through the design of the data validation component\u2014what validation checks you implemented, how you integrated them with MongoDB ingestion, and why you structured it that way within the CI/CD workflow?",
+      "topic": null,
+      "answer": " In my Vehicle Insurance MLOps pipeline, I used Amazon S3 as a lightweight model registry and designed it to support proper versioning, reproducibility, and safe rollbacks, fully integrated with Docker and GitHub Actions.",
+      "evaluation": {
+        "overall_score": 1
+      }
+    },
+    {
+      "question": "In your role at Awans Smart Solutions, you built a real\u2011time multi\u2011camera semantic segmentation system for automating driving test pass/fail evaluation\u2014can you walk me through the architecture you designed to ingest and process multiple video streams concurrently, the techniques you used to achieve low\u2011latency inference (e.g., model optimization, batching, hardware acceleration), and the trade\u2011offs you evaluated between segmentation accuracy and computational resource constraints?",
+      "topic": null,
+      "answer": " In my Vehicle Insurance MLOps pipeline, I used Amazon S3 as a lightweight model registry and designed it to support proper versioning, reproducibility, and safe rollbacks, fully integrated with Docker and GitHub Actions.",
+      "evaluation": {
+        "overall_score": 1
+      }
+    },
+    {
+      "question": "In your COVID\u201119 Chest X\u2011Ray Classification project, can you walk me through the data preprocessing and model\u2011training pipeline you built\u2014specifically how you addressed class imbalance, what augmentation or regularization techniques you applied, why you selected EfficientNet over other architectures, and how you validated that the 92.3\u202f% validation accuracy would generalize to real\u2011world clinical data?",
+      "topic": "specific data preprocessing steps (e.g., resizing, normalization, lung segmentation)",
+      "answer": "In my COVID-19 Chest X-Ray classification project, I designed the pipeline carefully to handle class imbalance, avoid overfitting, and ensure the reported 92.3% validation accuracy would generalize beyond the validation set",
+      "evaluation": {
+        "overall_score": 2
+      }
+    }
+  ],
+  "ended": false
+}

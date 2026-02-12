@@ -3,23 +3,28 @@ import json
 from huggingface_hub import InferenceClient
 import os
 from dotenv import load_dotenv
+import re
 
 load_dotenv()
 OUTPUT_PATH = "./src/data/resume.json"
 
 def text_extractor(document_path):
-    doc = pymupdf.open(document_path)
-    resume_text = []
-    for page in doc:
-        text = page.get_text()
-        # print(text)
-        if text:
-            resume_text.append(text.strip())
-    doc.close()
-    clean_text = "\n".join(resume_text)
-    clean_text = clean_text.replace("\n\n", "\n").strip()
-    return clean_text
-
+    try:
+        doc = pymupdf.open(document_path)
+        resume_text = []
+        for page in doc:
+            text = page.get_text()
+            # print(text)
+            if text:
+                resume_text.append(text.strip())
+        doc.close()
+        clean_text = "\n".join(resume_text)
+        clean_text = re.sub(r'\s+', ' ', clean_text)
+        clean_text = re.sub(r'\n{3,}', '\n\n', clean_text)
+        return clean_text
+    except Exception as e:
+        print(f"Error reading PDF: {e}")
+        return ""
 
 
 def json_extractor(model,text):
@@ -36,7 +41,7 @@ def json_extractor(model,text):
         {{
           "name": "",
           "tech_stack": [],
-          "description": "",
+          "description": ""
         }}
       ],
       "skills": [],

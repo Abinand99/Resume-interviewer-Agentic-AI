@@ -1,0 +1,33 @@
+{
+  "session_id": "session_001",
+  "difficulty_mode": "B",
+  "interactions": [
+    {
+      "turn": 1,
+      "question": "Can you walk me through the architecture of the real\u2011time multi\u2011camera semantic segmentation system you built for the Kerala MVD, specifically how you designed the pipeline to achieve low latency and handle synchronization across multiple video streams?",
+      "answer": "I built a real-time multi-camera semantic segmentation system for the Kerala MVD,where the main challenges were low latency inference and synchronization acrossmultiple IP camera streams.Architecture Overview:- Multiple IP cameras (front, side-front, side-back)- Independent video ingestion per camera- Central inference and rule-evaluation pipelineSynchronization Strategy:- No hard frame-level synchronization- Each stream runs independently- Frames are timestamped with camera_id and frame_id- Soft synchronization using a 100 to 150 ms time window- Violations are evaluated over multiple framesLow-Latency Design:- Lightweight segmentation models (YOLO-Seg, DDRNet, UNet variants)- Optimized input resolution- GPU warm-up at startup- Asynchronous pipeline using queues- Capture, inference, and post-processing are decoupledRule Evaluation:- Temporal consistency instead of single-frame decisions- Violations confirmed over N consecutive frames- Evidence aggregated across cameras- Reduces false positives from shadows and noiseReliability:- Asynchronous recording per camera- Violation clips stored separately- System remains operational even if one stream dropsKey Design Decision:- Synchronization at the logic layer instead of frame level- This ensured low latency, fault tolerance, and scalability",
+      "evaluation": {
+        "score": 7,
+        "strengths": [
+          "Provides a clear high\u2011level view of the pipeline (ingestion, inference, post\u2011processing).",
+          "Mentions asynchronous design with queues to decouple capture and inference.",
+          "Uses timestamps and a soft\u2011sync window to handle multi\u2011camera alignment.",
+          "Considers fault tolerance (independent recording, handling dropped streams).",
+          "Highlights model selection for low latency."
+        ],
+        "missing_concepts": [
+          "How clock synchronization (e.g., NTP) is achieved across cameras to keep timestamps comparable.",
+          "Details of buffering strategy and how out\u2011of\u2011order frames are handled.",
+          "Quantitative latency targets and actual measured end\u2011to\u2011end latency.",
+          "Use of batch inference or model optimization techniques (quantization, TensorRT, ONNX).",
+          "Scalability considerations (e.g., adding more cameras, GPU resource allocation, message\u2011queue systems).",
+          "Trade\u2011offs between model accuracy and latency, and why specific models were chosen."
+        ],
+        "mistakes": [],
+        "critique": "The answer gives a solid architectural outline and mentions key ideas like async queues and soft synchronization, which shows practical thinking. However, it stays at a high level and omits many implementation specifics that a senior engineer would be expected to discuss, such as precise timestamp alignment, handling of network jitter, latency measurements, and model\u2011level optimizations. Without these details, it\u2019s hard to assess the robustness and scalability of the solution.",
+        "follow_up_question": "Can you describe the exact mechanism you used to align frames from different cameras\u2014how do you handle clock drift, network jitter, and out\u2011of\u2011order frames to ensure the rule\u2011evaluation logic sees a consistent multi\u2011camera view?"
+      },
+      "timestamp": "2026-02-07T21:10:57.453915"
+    }
+  ]
+}
