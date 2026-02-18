@@ -7,7 +7,10 @@ KNOWLEDGE_PATH = "./src/data/knowledge_memory.json"
 
 def load_knowledge() -> Dict:
     if not os.path.exists(KNOWLEDGE_PATH):
-        return {}
+        return {
+            "sessions": [],
+            "total_sessions": 0
+        }
 
     with open(KNOWLEDGE_PATH, "r", encoding="utf-8") as f:
         return json.load(f)
@@ -17,32 +20,19 @@ def save_knowledge(knowledge: Dict):
     with open(KNOWLEDGE_PATH, "w", encoding="utf-8") as f:
         json.dump(knowledge, f, indent=2)
 
-def update_topic_knowledge(
-        knowledge: Dict,
-        topic: str,
-        evaluation: Dict
-):
-    if not topic:
-        return
-    
-    score = evaluation.get("overall_score",0)
+def add_session_summary(summary: Dict):
+    knowledge = load_knowledge()
 
-    if topic not in knowledge:
-        knowledge[topic] = {
-            "strength": 0.5,
-            "fail_count": 0,
-            "success_count": 0,
-            "last_tested": None
-        }
-    topic_data = knowledge[topic]
+    session_record = {
+        "date": datetime.now().isoformat(),
+        "overall_performance": summary.get("overall_performance"),
+        "strengths": summary.get("strengths", []),
+        "weak_areas": summary.get("weak_areas", []),
+        "knowledge_gaps": summary.get("knowledge_gaps", []),
+        "improvement_advice": summary.get("improvement_advice",[])
+    }
 
-    if score < 5:
-        topic_data["fail_count"] += 1
-        topic_data["strength"] = max(0.0, topic_data["strength"]- 0.1)
-    else:
-        topic_data["success_count"] += 1
-        topic_data["strength"] = min(1.0, topic_data["strength"] + 0.1)
-
-    topic_data["last_tested"] = datetime.now().isoformat()
+    knowledge["sessions"].append(session_record)
+    knowledge["total_sessions"] += 1
 
     save_knowledge(knowledge)

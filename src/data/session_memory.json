@@ -1,6 +1,6 @@
 {
   "session_id": "session_20260212_190415",
-  "current_topic": "specific data preprocessing steps (e.g., resizing, normalization, lung segmentation)",
+  "current_topic": "general",
   "turns": [
     {
       "question": "In your real\u2011time multi\u2011camera semantic segmentation system for automating driving\u2011test evaluations, can you walk me through the architectural decisions you made to achieve low\u2011latency video inference\u2014specifically how you chose and optimized the model, managed data flow across multiple camera streams, and leveraged hardware resources, and what trade\u2011offs you considered between accuracy, throughput, and system complexity?",
@@ -33,7 +33,223 @@
       "evaluation": {
         "overall_score": 2
       }
+    },
+    {
+      "question": "Can you walk me through the architecture of the real\u2011time multi\u2011camera semantic segmentation system you built for the Kerala MVD, specifically how you achieved low\u2011latency inference across multiple video streams, how you handled synchronization and data flow between the cameras, and what challenges you encountered when deploying and scaling the PyTorch/OpenCV inference pipeline?",
+      "topic": "general",
+      "answer": "I built a multi-camera real-time segmentation system using independent OpenCV capture threads and a shared PyTorch GPU inference worker. Instead of hard frame sync, I used timestamp-based soft synchronization at the rule engine level to avoid blocking. Low latency was achieved using lightweight models, reduced resolution, GPU warm-up, and queue-based asynchronous processing. I handled RTSP jitter with frame dropping and buffer control. Deployment challenges included GPU contention and CPU\u2013GPU transfer overhead, which I mitigated through batching and optimized memory handling.",
+      "evaluation": {
+        "evaluation_score": 8
+      }
+    },
+    {
+      "question": "Can you walk me through the design and implementation decisions you made when building the end\u2011to\u2011end MLOps pipeline for the vehicle insurance data\u2014specifically how you structured the modular Python components for data validation, transformation, and model training, how you integrated Docker and GitHub Actions for CI/CD, and what trade\u2011offs you considered when choosing AWS services (EC2, S3, ECR) for model registry and deployment?",
+      "topic": "general",
+      "answer": "In my vehicle insurance MLOps project, I designed the system as a modular, production-style pipeline with clear separation between data validation, transformation, model training, and deployment. My goal was to make each component independently testable, reproducible, and CI/CD-friendly.",
+      "evaluation": {
+        "evaluation_score": 3
+      }
+    },
+    {
+      "question": "Can you dive into the concrete implementation you chose for data validation\u2014what schema\u2011definition library or custom approach you used, how you structured unit/integration tests to enforce those schemas, and",
+      "topic": "general",
+      "answer": "For data validation in the vehicle insurance MLOps pipeline, I implemented a schema-driven validation layer using a combination of a YAML-based schema definition and a custom validation module built on top of Pandas. I focused on making validation deterministic, testable, and CI-enforceable.",
+      "evaluation": {
+        "evaluation_score": 3
+      }
+    },
+    {
+      "question": "Could you walk me through the exact schema\u2011definition approach you settled on (e.g., Pydantic, Marshmallow, or a custom solution), how you organized the unit\u2011test suite around it\u2014including the testing framework, fixtures, and specific test cases for individual validation rules\u2014as well as the integration\u2011test strategy you employed and how those tests are hooked into your GitHub Actions CI pipeline?",
+      "topic": "general",
+      "answer": "I implemented a YAML-based schema contract with a custom Pandas validation engine to enforce required columns, types, ranges, and null thresholds. I structured unit tests using pytest with fixtures for valid and invalid datasets, covering missing columns, dtype mismatches, and constraint violations. Integration tests verified the full pipeline and mocked AWS interactions. GitHub Actions runs the full test suite on every push, failing fast if schema rules break. This ensured strict data contracts and prevented silent drift.",
+      "evaluation": {
+        "evaluation_score": 7
+      }
+    },
+    {
+      "question": "Can you walk me through the algorithmic design and implementation of the approximate matrix multiplication (MADDNESS) technique you developed in C++, detailing the",
+      "topic": "general",
+      "answer": "",
+      "evaluation": {
+        "evaluation_score": 0
+      }
+    },
+    {
+      "question": "In your COVID\u201119 chest X\u2011ray classification project, can you walk me through the strategies you employed to address class imbalance and ensure reliable validation\u2014such as data augmentation, sampling methods, or loss adjustments\u2014and explain why you selected EfficientNet as the backbone instead of other CNN architectures?",
+      "topic": "general",
+      "answer": "i dont know",
+      "evaluation": {
+        "evaluation_score": 0
+      }
+    },
+    {
+      "question": "In your",
+      "topic": "general",
+      "answer": "idont know",
+      "evaluation": {
+        "evaluation_score": 0
+      }
+    },
+    {
+      "question": "Can you walk me through the end\u2011to\u2011end architecture of your Multi\u2011PDF Chatbot\u2014detailing how you parsed and chunked the PDFs, generated and stored embeddings in FAISS",
+      "topic": "general",
+      "answer": "i dont know",
+      "evaluation": {
+        "evaluation_score": 0
+      }
+    },
+    {
+      "question": "",
+      "topic": "general",
+      "answer": "",
+      "evaluation": {
+        "evaluation_score": 0
+      }
+    },
+    {
+      "question": "",
+      "topic": "general",
+      "answer": "",
+      "evaluation": {
+        "evaluation_score": 0
+      }
+    },
+    {
+      "question": "",
+      "topic": "general",
+      "answer": "",
+      "evaluation": {
+        "evaluation_score": 0
+      }
+    },
+    {
+      "question": "Can you walk me through the architecture you designed for the real\u2011time multi\u2011camera semantic segmentation system you built for the Kerala MVD, specifically how you achieved low\u2011latency inference across multiple video streams, handled synchronization and data consistency between cameras, and ensured reliable pass/fail evaluation in production?",
+      "topic": "general",
+      "answer": "I designed the system with independent capture threads per camera and a shared GPU inference worker using an asynchronous queue-based pipeline. Instead of strict frame synchronization, I used timestamp-based soft grouping and temporal aggregation to evaluate violations across multiple frames. I implemented frame dropping and bounded queues to maintain low latency. The rule engine fused evidence from multiple cameras before confirming violations, ensuring reliable and deterministic pass/fail evaluation in production.",
+      "evaluation": {
+        "evaluation_score": 7
+      }
+    },
+    {
+      "question": "Could you provide the exact latency targets you aimed for per camera stream and the hardware specifications\u2014such as GPU model(s) and number of GPUs\u2014that enabled you to meet those low\u2011latency requirements?",
+      "topic": "general",
+      "answer": "I targeted under 150 ms end-to-end latency per stream, with segmentation inference staying around 40\u201360 ms per frame. The system ran on a single GTX 1650 GPU with 16GB RAM, handling three camera streams at around 10\u201315 FPS each. I achieved this using lightweight models, reduced resolution, asynchronous queues, and frame dropping to prevent backlog.",
+      "evaluation": {
+        "evaluation_score": 9
+      }
+    },
+    {
+      "question": "In your end\u2011to\u2011end MLOps pipeline for the vehicle\u2011insurance data, can you walk me through how you architected the modular Python components for data ingestion, validation, transformation, and model training, and how you integrated Docker and GitHub Actions to guarantee reproducibility, version control, and seamless deployment of models on AWS?",
+      "topic": "general",
+      "answer": "I architected the pipeline with modular Python components for ingestion, validation, transformation, and training to ensure testability and separation of concerns. Reproducibility was enforced via dataset hashing, Git commit tracking, fixed seeds, and semantic versioning. Docker ensured environment consistency, and GitHub Actions automated testing, model promotion, image building, and deployment. I used S3 as a lightweight model registry and ECR for container versioning, ensuring model-image tag alignment for safe, reproducible deployments on AWS",
+      "evaluation": {
+        "evaluation_score": 7
+      }
+    },
+    {
+      "question": "Could you walk me through the concrete implementation of each pipeline stage\u2014e.g., the MongoDB ingestion code, the validation schemas (perhaps using\u202fpydantic), the transformation steps (pandas/Scikit\u2011learn pipelines), and how you handled model training details such as hyperparameter tuning, experiment tracking (MLflow or similar), and logging?",
+      "topic": "general",
+      "answer": "I ingested data from MongoDB using pymongo into Pandas, validated rows using a Pydantic schema plus batch-level checks, transformed features using Scikit-learn ColumnTransformer pipelines, and saved the preprocessing artifact. For training, I used GridSearchCV for hyperparameter tuning and tracked experiments with MLflow, logging parameters, metrics, and artifacts. Structured logging and dataset hashing ensured reproducibility and traceability across runs.",
+      "evaluation": {
+        "evaluation_score": 8
+      }
+    },
+    {
+      "question": "In your COVID\u201119 chest X\u2011ray classification project, can you walk me through how you addressed class imbalance and overfitting\u2014what data preprocessing, augmentation, validation strategies, or regularization techniques you employed to ensure the model\u2019s performance was robust and generalizable?",
+      "topic": "general",
+      "answer": "\u201cI handled class imbalance using weighted cross-entropy and monitored per-class recall and F1-score rather than relying only on accuracy. To reduce overfitting, I used transfer learning with EfficientNet, applied medically safe augmentations like small rotations and brightness changes, added dropout and weight decay, and used early stopping based on validation loss. I also used stratified splits and monitored confusion matrices to ensure the model wasn\u2019t biased toward the majority class.",
+      "evaluation": {
+        "evaluation_score": 7
+      }
+    },
+    {
+      "question": "Could you walk me through the exact preprocessing pipeline you used for the chest X\u2011ray images\u2014how you resized and normalized the scans, and whether you applied any oversampling, undersampling, or synthetic techniques (e.g., SMOTE) in addition to weighted loss to address the class imbalance?",
+      "topic": "general",
+      "answer": "I resized all X-rays to 224\u00d7224 to match EfficientNet\u2019s input, converted grayscale to 3-channel format, and normalized using ImageNet statistics. For imbalance, I primarily used weighted cross-entropy loss and a weighted sampler to oversample minority COVID cases. I avoided SMOTE because it\u2019s not suitable for image data and can distort medical features. Instead, I used medically safe augmentations like small rotations and brightness adjustments to improve generalization.",
+      "evaluation": {
+        "evaluation_score": 9
+      }
+    },
+    {
+      "question": "In your Multi\u2011PDF Chatbot project, can you walk me through the design decisions you made for document chunking, embedding generation, and FAISS indexing\u2014specifically how you balanced retrieval relevance, latency, and scalability, and what trade\u2011offs you considered when selecting FAISS parameters and similarity metrics?",
+      "topic": "general",
+      "answer": "I used recursive chunking with 500\u2013800 token chunks and small overlaps to balance semantic coherence and granularity. Embeddings were normalized and indexed using FAISS IndexFlatIP for exact cosine similarity search, since the dataset was moderate in size. I tuned top-k retrieval to 3\u20135 to balance relevance and latency. If scaling beyond tens of thousands of chunks, I would switch to IVF or HNSW for approximate search. The overall system maintained sub-50 ms retrieval latency while preserving strong answer relevance.",
+      "evaluation": {
+        "evaluation_score": 8
+      }
+    },
+    {
+      "question": "In your research and implementation of the approximate matrix multiplication (MADDNESS) technique at Zoho, can you walk me through the algorithmic choices you made to balance accuracy and speed, how you validated the numerical correctness of the approximations, and the steps you took to integrate this custom C++ kernel into a larger PyTorch\u2011based training or inference workflow?",
+      "topic": "general",
+      "answer": "I tuned the number of subspaces and codebook sizes in MADDNESS to balance approximation error and speed, targeting under 10% relative Frobenius error while achieving 2\u20134\u00d7 speedup. I validated correctness by comparing against exact matmul outputs and evaluating downstream task accuracy impact. The C++ kernel was optimized using SIMD and cache-aware memory layouts, and integrated into PyTorch via a custom C++ extension with a wrapper module that replaced nn.Linear during inference",
+      "evaluation": {
+        "evaluation_score": 6
+      }
+    },
+    {
+      "question": "Could you walk me through how you handled gradients and PyTorch\u2019s autograd when integrating the custom MADDNESS C++ kernel\u2014did you implement a backward pass, use a surrogate gradient, or fall back to exact matmul during training?",
+      "topic": "general",
+      "answer": "When integrating the custom MADDNESS C++ kernel into PyTorch, I made a deliberate decision not to rely on fully approximate gradients. Instead, I used approximate matmul only in the forward pass for inference, and fell back to exact matmul during training to preserve gradient correctness and stability.",
+      "evaluation": {
+        "evaluation_score": 4
+      }
+    },
+    {
+      "question": "In your end\u2011to\u2011end MLOps pipeline for the vehicle\u2011insurance data, can you describe the model\u2011registry and version\u2011control strategy you implemented using S3 and ECR, and explain how you ensured traceability, safe rollbacks, and auditability of model artifacts across continuous deployments?",
+      "topic": "general",
+      "answer": "I used S3 as an immutable model registry with semantic versioned folders storing weights, preprocessing artifacts, dataset hashes, and Git commit IDs to ensure traceability. Docker images were tagged with matching semantic versions and stored in ECR. GitHub Actions enforced strict version alignment and blocked deployments on mismatch. Rollbacks were safe and immediate by redeploying a previous image tag. This ensured reproducibility, auditability, and consistent continuous deployment without model-image drift.",
+      "evaluation": {
+        "evaluation_score": 8
+      }
+    },
+    {
+      "question": "In your Multi\u2011PDF Chatbot project, can you walk me through how you designed the prompt engineering and conversation\u2011memory mechanisms to preserve context across successive user queries, and what trade\u2011offs you considered regarding token limits, latency, and answer relevance?",
+      "topic": "general",
+      "answer": "In the Multi-PDF Chatbot project, I designed the system using a retrieval-augmented generation architecture where prompt design and conversation memory were carefully structured to preserve context without exceeding token limits or increasing latency.",
+      "evaluation": {
+        "evaluation_score": 2
+      }
+    },
+    {
+      "question": "Could you walk me through the exact prompt template you constructed (including any placeholders you used), the conversation\u2011memory strategy you implemented\u2014such as sliding\u2011window versus summarization\u2014how you handled token\u2011limit constraints and latency optimizations, and what trade\u2011offs you evaluated between answer relevance and token usage, especially any concrete LangChain or Gemini\u202fPro implementation details you applied?",
+      "topic": "general",
+      "answer": "In the Multi-PDF Chatbot, I implemented a structured prompt template with explicit placeholders, used a sliding-window memory strategy rather than full summarization, and added dynamic token budgeting logic to balance relevance and latency. The system was built using LangChain for orchestration and Gemini Pro as the LLM.",
+      "evaluation": {
+        "evaluation_score": 3
+      }
+    },
+    {
+      "question": "Could you walk me through the exact LangChain\u202f`PromptTemplate` you built (showing the placeholders you used), detail how you implemented the sliding\u2011window memory\u2014including how many turns you keep, how the window is stored and truncated, the token\u2011budget calculations you applied, and any concrete code or configuration you added for token\u2011limit handling and latency optimizations (e.g., async retrieval, caching) in your Gemini\u202fPro\u2011backed RAG pipeline?",
+      "topic": "general",
+      "answer": "In the Multi-PDF Chatbot, I implemented a structured PromptTemplate, a sliding-window memory mechanism using LangChain\u2019s ConversationBufferWindowMemory, dynamic token-budget enforcement, and async retrieval with caching to control latency. I\u2019ll walk through each part concretely.",
+      "evaluation": {
+        "evaluation_score": 3
+      }
+    },
+    {
+      "question": "In your end\u2011to\u2011end MLOps pipeline for the vehicle\u2011insurance data, can you walk me through the data validation framework you built\u2014what specific schema, integrity, and statistical checks you implemented, how you detect and handle anomalies or drift, and how those validation steps are orchestrated within your Docker\u2011based CI/CD workflow to ensure only clean, trustworthy data reaches model training and deployment?",
+      "topic": "general",
+      "answer": "I built a three-layer validation framework: schema checks using a YAML contract, domain integrity checks like duplicate detection and logical constraints, and statistical drift detection using baseline mean/std comparison and PSI. All validation runs inside the Docker container and is enforced in GitHub Actions before training. If validation fails, the CI pipeline stops, preventing bad data from reaching model training or deployment. Each approved model stores dataset hash and validation metadata for full traceability.",
+      "evaluation": {
+        "evaluation_score": 8
+      }
+    },
+    {
+      "question": "In your end\u2011to\u2011end vehicle\u2011insurance MLOps pipeline, can you describe how you set up monitoring and alerting for data drift and model performance degradation after deployment on AWS, including the specific metrics, tools, and automated retraining triggers you implemented?",
+      "topic": "general",
+      "answer": "I monitored feature drift using PSI and tracked baseline distribution statistics stored in S3. Model performance was monitored using accuracy, ROC-AUC, and proxy confidence metrics, logged to CloudWatch with alarms configured for threshold breaches. If PSI exceeded 0.25 or performance dropped more than 5%, a retraining workflow was automatically triggered via GitHub Actions. New models were validated and only promoted if they outperformed the current production model. This ensured safe, traceable, and automated model lifecycle management.",
+      "evaluation": {
+        "evaluation_score": 8
+      }
+    },
+    {
+      "question": "In your COVID\u201119 chest X\u2011ray classification project, can you describe the steps you took to ensure the model\u2019s predictions were interpretable and clinically trustworthy\u2014such as any visualization techniques (e.g., saliency maps, Grad\u2011CAM), validation against radiologist annotations, or bias analyses you performed to assess whether the model behaved consistently across patient subgroups?",
+      "topic": "general",
+      "answer": "In the Multi-PDF Chatbot, I implemented a structured PromptTemplate, a sliding-window memory mechanism using LangChain\u2019s ConversationBufferWindowMemory, dynamic token-budget enforcement, and async retrieval with caching to control latency. I\u2019ll walk through each part concretely.",
+      "evaluation": {
+        "evaluation_score": 0
+      }
     }
   ],
-  "ended": false
+  "ended": true
 }

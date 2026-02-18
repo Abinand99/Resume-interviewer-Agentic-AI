@@ -38,10 +38,65 @@ Resume data:
             {"role": "user", "content": prompt}
         ],
         temperature=0.4,
-        max_completion_tokens=300
+        max_completion_tokens=400
     )
 
-    return response.choices[0].message.content.strip()
+    # return response.choices[0].message.content.strip()
+    question = response.choices[0].message.content.strip()
+
+    if len(question) < 20 or "?" not in question:
+        return generate_question(model, resume_json, asked_questions)
+
+    return question
+
+def generate_followup_question(
+        model,
+        resume_json,
+        followup_chain,
+        missing_concepts,
+        mode ="probe"
+):
+    prompt = f"""
+You are a technical interviewer asking a follow-up question.
+
+Conversation so far:
+{json.dumps(followup_chain, indent=2)}
+
+Missing Concepts:
+{missing_concepts}
+
+Follow-up mode:
+{mode}
+
+Instructions:
+- Ask ONE follow-up question
+- If mode is "drill", ask deeper technical reasoning
+- If mode is "probe", ask clarification question
+- Focus on missing concepts
+- Do not explain anything
+- Do not ask multiple questions
+- Keep it natural like an interviewer
+
+Resume context:
+{resume_json}
+"""
+    response = model.chat.completions.create(
+        model = "openai/gpt-oss-120b",
+        messages = [
+            {"role":"system","content": "You are a strict interviewer."},
+            {"role": "user", "content": prompt}
+        ],
+        temperature = 0.4,
+        max_completion_tokens =300
+    )
+    # return response.choices[0].message.content.strip()
+
+    question = response.choices[0].message.content.strip()
+    
+    if len(question) < 20 or "?" not in question:
+        return generate_question(model, resume_json, asked_questions)
+
+    return question
 
 def load_question(path_question):
     if not os.path.exists(path_question):

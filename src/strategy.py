@@ -3,19 +3,14 @@ from typing import Dict
 def decide_next_action(
     evaluation: Dict,
     session_state: Dict,
-    knowledge_state: Dict,
     followup_count: int
 ) -> Dict:
     
-    # correctness = evaluation.get("correctness", 0.0)
-    # depth = evaluation.get("depth", 0.0)
-    # clarity = evaluation.get("clarity", 0.0)
 
     score = evaluation.get("evaluation_score", 0)
     missing = evaluation.get("missing_concepts", [])
     topic = missing[0] if missing else session_state.get("current_topic", "general")
 
-    # topic_memory = knowledge_state.get(topic, {})
     if score <=1:
         return {"action": "move_on", "topic": None, "reason": "Dont Know or Zero understanding"}
         
