@@ -8,8 +8,9 @@ from src.evaluator import evaluate_answer
 from src.strategy import decide_next_action
 
 from src.session_memory import load_session, add_turn, end_session
-from src.knowledge_memory import add_session_summary
+from src.knowledge_memory import add_session_summary,load_knowledge
 from src.summary_agent import generate_interview_summary
+from src.progress_analyzer import generate_progress_summary
 
 load_dotenv()
 
@@ -91,6 +92,12 @@ def run_interview(resume_json):
     
     add_session_summary(summary)
 
-
     print("\nINTERVIEW SUMMARY")
     print(json.dumps(summary, indent=2))
+
+    knowledge = load_knowledge()
+    progress_summary = generate_progress_summary(knowledge)
+
+
+    print("\nPROGRESS SUMMARY")
+    print(json.dumps(progress_summary, indent=2))
